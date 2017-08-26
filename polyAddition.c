@@ -1,3 +1,9 @@
+/*
+ * polyAddition.c
+ *
+ *  Created on: 26-Aug-2017
+ *      Author: Sarju S
+ */
 /* polynomial using linkd list*/
 #include<stdio.h>
 #include<stdlib.h>
@@ -8,17 +14,17 @@ typedef struct polyNode{
 	struct polyNode *next;
 }polyNode;
 
-node *startC=NULL,*cur_ptr=NULL;
+polyNode *startC=NULL,*cur_ptr=NULL;
 
-node *pread()
+polyNode *poly_read()
  	{
- 	node *start=NULL,*p,*temp=NULL;
+	polyNode *start=NULL,*p,*temp=NULL;
  	int no_ofterms,i;
  	setbuf(stdout,NULL);
  	printf("\nEnter the no_of terms\n");
  	scanf("%d",&no_ofterms);
  	for(i=0;i<no_ofterms;i++){
- 		p=(node*)malloc(sizeof(node));
+ 		p=(polyNode*)malloc(sizeof(polyNode));
  		printf("enter the coefficient and exponent\n");
  		scanf("%d%d",&p->coef,&p->expo);
  		p->next=NULL;
@@ -46,8 +52,8 @@ int compare(int expo1,int expo2){
 
 void attach(int coefficient,int exponent){
 
- 	node *temp;
- 	temp=(node*)malloc(sizeof(node));
+	polyNode *temp;
+ 	temp=(polyNode*)malloc(sizeof(polyNode));
  	temp->coef=coefficient;
  	temp->expo=exponent;
  	temp->next=NULL;
@@ -62,11 +68,11 @@ void attach(int coefficient,int exponent){
 
  }
 
-void polyadd(node *a,node *b)
+void poly_add(polyNode *a,polyNode *b)
  	{
 
  	int sum;
- 	node *startA,*startB;
+ 	polyNode *startA,*startB;
  	startA=a;
  	startB=b;
 	while(startA && startB){
@@ -90,30 +96,30 @@ void polyadd(node *a,node *b)
  	for(;startB;startB=startB->next)
  		attach(startB->coef,startB->expo);
 }
-void pprint(node *d){
+void poly_print(polyNode *d){
  	for(;d;d=d->next)
  		printf("%d X^%d+",d->coef,d->expo);
  }
 
 int main(){
 
- 	node *a,*b,*c;
+	polyNode *a,*b,*c;
  	printf("\n The first polynomial\n");
- 	a=pread();
+ 	a=poly_read();
 
  	printf("\nThe  second polynomial\n");
- 	b=pread();
- 	polyadd(a,b);
+ 	b=poly_read();
+ 	poly_add(a,b);
 
  	printf("\nFIRST POLYNOMIAL\n\n");
  	pprint(a);
  	printf("\nSECOND POLYNOMIAL\n\n");
- 	pprint(b);
+ 	poly_print(b);
 
 
  	printf("\nRESULTING POLYNOMIAL\n\n");
  	c=startC;
- 	pprint(c);
+ 	poly_print(c);
  	return 0;
  	}
 
